@@ -1,0 +1,194 @@
+---
+title: "How to Plot Data"
+output: learnr::tutorial
+runtime: shiny_prerendered
+---
+
+```{r setup, include=FALSE}
+library(learnr)
+library(learnrhash)
+library(tidyverse)
+library(gradethis)
+library(here)
+tutorial_options(
+  # use gradethis for checking
+  exercise.checker = gradethis::grade_learnr
+  )
+knitr::opts_chunk$set(echo = FALSE)
+x <- rnorm(100, 0, 1)
+y <- rnorm(100, 2, 2)
+data <- cbind.data.frame(x, y)
+```
+
+## Data
+
+When making plots, you can use base plots or `ggplot` tools. To use `ggplot` functions, the data needs to be in a data frame.
+
+```{r data, exercise = TRUE}
+library(ggplot2) 
+## need to load this to use ggplot functions
+
+x <- rnorm(100, 0, 1)
+y <- rnorm(100, 2, 2)
+
+data <- cbind.data.frame(x, y) ## combine vectors into data frame
+head(data)
+```
+
+## Histogram
+
+Be sure to always add informative titles and axis labels.
+
+```{r hist, exercise = TRUE}
+hist(x, main = "informative title",
+     xlab = "informative x axis label" )
+## can take a vector
+
+hist(data$x, main = "informative title",
+     xlab = "informative x axis label" )
+## can access a column in a data frame
+
+
+ggplot(data, aes(x = x)) + geom_histogram() + ggtitle("informative title") + xlab("informative x axis label")
+```
+
+## Scatterplot
+
+You can customize the color of points. In `ggplot` you can also change the background and increase the font size of labels.
+
+```{r sp, exercise = TRUE}
+plot(x, y, main = "informative title",
+     xlab = "informative x axis label",
+     ylab = "informative y axis label" )
+## can take vectors
+
+plot(data$x, data$y, main = "informative title",
+     xlab = "informative x axis label",
+     ylab = "informative y axis label",
+     col = "blue")
+## can access columns in a data frame
+
+
+ggplot(data, aes(x = x, y = y)) + geom_point(col = "red") + ggtitle("informative title") + xlab("informative x axis label") + ylab("informative y axis label") + theme_minimal(base_size = 12)
+```
+
+
+## Boxplot
+
+```{r bp, exercise = TRUE}
+boxplot(x,
+        main = "",
+        xlab="")
+## can take a vector
+
+
+boxplot(data$x,
+        main = "",
+        xlab="")
+## can access a column in a data frame
+
+ggplot(data, aes(x = x)) + geom_boxplot() + ggtitle("informative title") + xlab("informative x axis label") 
+```
+
+
+## Sampling
+
+Decide if the following sampling methods produce a simple random sample of students from a class of 30 students.
+
+```{r quiz}
+quiz(
+  question("Select the first six students on the class roster",
+    answer("Yes - SRS"),
+    answer("No", correct = T),allow_retry = TRUE,
+    random_answer_order = F
+  ),
+  question("Pick a digit at random and select those students whose phonen umbers end in that digit.",
+   answer("Yes - SRS"),
+    answer("No", correct = T),allow_retry = TRUE,
+    random_answer_order = F
+  ),
+   question("If the classroom has six rows of chairs with five seats in each row, choose a row at rando and select all students in that row.",
+   answer("Yes - SRS"),
+    answer("No", correct = T),allow_retry = TRUE,
+    random_answer_order = F
+  ),
+   question("If the class consists of 15 boys and 15 girls, assign the boys the numbers from 1 to 15, and the girls the numbers from 16-30. Then use a random digit table to select six numbers from 1 to 30. Select the students assigned those numbers in your sample.",
+   answer("Yes - SRS"),
+    answer("No", correct = T),allow_retry = TRUE,
+    random_answer_order = F
+  ),
+   question("If the class consists of 15 boys and 15 girls, assign the boys teh numbers from 1 to 15, and the girls the numbers from 16-30. Then use a random digit table to select three numbers from 1 to 15 and three numbers from 16-30. Select the students assigned those numbers in your sample.",
+   answer("Yes - SRS", correct = T),
+    answer("No"),allow_retry = TRUE,
+    random_answer_order = F
+  ),
+   question("Randomly choose a letter from the English alphabet and select for the sample those students whose last names begin with that letter. If no last name begins with that letter, randomly choose another letter from the alphabet.",
+   answer("Yes - SRS"),
+    answer("No", correct = T),allow_retry = TRUE,
+    random_answer_order = F
+  )
+)
+```
+
+## Plot Types
+
+We have data on the sodium level and number of caloris for hot dogs made from different types of meat.
+
+```{r loadData, exercise = TRUE, warning = F, message = F}
+hot_dog <- read_csv(here("inst/extdata/hotdogs.csv")) 
+head(hot_dog)
+```
+
+Make a base plot to help answer the following question: what is the distribution of calories in hot dogs?
+
+```{r plot1, exercise = TRUE}
+___(___, main = "Distribution of Hot Dog Calories", xlab = "calories")
+```
+
+```{r plot1-solution}
+hist(hot_dog$Calories, main = "Distribution of Hot Dog Calories", xlab = "calories")
+```
+
+```{r plot1-check}
+# check code
+gradethis::grade_code()
+```
+
+Make a base plot to help answer the following question: is a high sodium level correlated with a high calorie content?
+
+```{r plot2, exercise = TRUE}
+___(___, ___, main = "Hot Dog Sodium v. Calories", xlab = "sodium", ylab = "calories")
+```
+
+```{r plot2-solution}
+plot(hot_dog$Sodium, hot_dog$Calories, main = "Hot Dog Sodium v. Calories", xlab = "sodium", ylab = "calories")
+```
+
+```{r plot2-check}
+# check code
+gradethis::grade_code()
+```
+
+
+## Submit progress
+
+As you have gone through this tutorial, your progress has been kept track of in something called a "hash". I can use this to make sure you have executed all of the code chunks and answered all of the questions. I will use this to give you a completion grade for this assignment. 
+
+If a Google Form window does not appear, you can access it [here](https://docs.google.com/forms/d/e/1FAIpQLSeW9exymQeRir3-xsUfzm6JPVWB9XHaKHkAa-hpR0ne1g7gyw/viewform).
+
+```{r context="server"}
+learnrhash::encoder_logic(strip_output = T)
+```
+
+```{r encode, echo=FALSE}
+learnrhash::encoder_ui(
+  ui_before = div(strong("Submit your hash in the form below."), br(), br()),
+  ui_after  = learnrhash::iframe_ui(
+    src = "https://docs.google.com/forms/d/e/1FAIpQLSeW9exymQeRir3-xsUfzm6JPVWB9XHaKHkAa-hpR0ne1g7gyw/viewform", 
+    width="900px", height= "1000px"
+  )
+)
+```
+
+
+

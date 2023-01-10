@@ -38,3 +38,4 @@ Click "Session" --> "Restart R" and try to run the tutorial again.
 - subsets: how to subset vectors, matrices, and data frames using indices, logicals, and subset notation
 - loops: how to use for loops including to simulate and store results 
 - prob-dists: how to calculate probabilities and quantiles of common distributions and draw random values from them
+- plots: some examples of plots in both base R and ggplot + sampling strategies 
