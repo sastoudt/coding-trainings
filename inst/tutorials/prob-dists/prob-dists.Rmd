@@ -1,0 +1,134 @@
+---
+title: "How to Use Probability Distributions"
+output: learnr::tutorial
+runtime: shiny_prerendered
+---
+```{r setup, include=FALSE}
+library(learnr)
+library(learnrhash)
+library(tidyverse)
+library(gradethis)
+library(here)
+tutorial_options(
+  # use gradethis for checking
+  exercise.checker = gradethis::grade_learnr
+  )
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+## Generate random values from a distribution
+
+You can generate random values from a variety of distributions including Normal, t, Exponential, and Gamma. Run the following chunk a few different times.
+
+```{r rand, exercise = TRUE}
+rnorm(2, mean = 0, sd = 1)
+
+rt(2, df = 5)
+```
+
+If you want the random generation to be reproducible, you need to set your seed.
+
+```{r randseed, exercise = TRUE}
+set.seed(11435)
+
+rnorm(2, mean = 0, sd = 1)
+
+rt(2, df = 5)
+```
+
+## Calculate probabilities
+
+You can calculate probabilities under a particular probability distribution. 
+
+```{r prob, exercise = TRUE}
+pnorm(1.96, mean = 0, sd = 1, lower.tail = TRUE)
+pnorm(-1.96, mean = 0, sd = 1, lower.tail = TRUE)
+
+pt(0.25, df = 5, lower.tail = TRUE)
+```
+
+
+## Find quantiles
+
+You can also calculate quantiles of particular probability distributions.
+
+```{r quant, exercise = TRUE}
+qnorm(0.975, mean = 0, sd = 1, lower.tail = TRUE)
+qnorm(0.025, mean = 0, sd = 1, lower.tail = TRUE)
+
+qt(0.6, df = 5, lower.tail = TRUE)
+```
+
+
+## Your Turn
+
+Suppose $Y \sim N(\mu = 2.7, \sigma^2 = 1.3)$. Find $P(Y \geq 3.3)$.
+
+```{r normprob, exercise = TRUE}
+_norm(___, mean = ___, sd = ___, lower.tail = ___)
+```
+
+```{r normprob-solution}
+pnorm(3.3, mean = 2.7, sd = sqrt(1.3), lower.tail = FALSE)
+```
+
+```{r normprob-check}
+# check code
+gradethis::grade_code()
+```
+
+Find the Interquartile Range
+
+```{r normiqr, exercise = TRUE}
+_norm(___, mean = ___, sd = ___, lower.tail = ___) -
+_norm(___, mean = ___, sd = ___, lower.tail = ___)
+```
+
+```{r normiqr-solution}
+qnorm(0.75, mean = 2.7, sd = sqrt(1.3), lower.tail = FALSE) - 
+qnorm(0.25, mean = 2.7, sd = sqrt(1.3), lower.tail = FALSE)
+```
+
+```{r normiqr-check}
+# check code
+gradethis::grade_code()
+```
+
+Performance ratings at a certain corporation are Normally distributed with a mean of 82.5 and a standard deviation of 9.2. Policy states that the top 15% of performers will earn a 3% raise. What is the lowest performance rating that will guarantee an employee a raise?
+
+```{r perf, exercise = TRUE}
+_norm(___, mean = ___, sd = ___, lower.tail = ___)
+```
+
+```{r perf-solution}
+qnorm(0.15, mean = 82.5, sd = 9.2, lower.tail = FALSE)
+```
+
+```{r perf-check}
+# check code
+gradethis::grade_code()
+```
+
+
+## Submit progress
+
+As you have gone through this tutorial, your progress has been kept track of in something called a "hash". I can use this to make sure you have executed all of the code chunks and answered all of the questions. I will use this to give you a completion grade for this assignment. 
+
+If a Google Form window does not appear, you can access it [here](https://docs.google.com/forms/d/e/1FAIpQLSeW9exymQeRir3-xsUfzm6JPVWB9XHaKHkAa-hpR0ne1g7gyw/viewform).
+
+```{r context="server"}
+learnrhash::encoder_logic(strip_output = T)
+```
+
+```{r encode, echo=FALSE}
+learnrhash::encoder_ui(
+  ui_before = div(strong("Submit your hash in the form below."), br(), br()),
+  ui_after  = learnrhash::iframe_ui(
+    src = "https://docs.google.com/forms/d/e/1FAIpQLSeW9exymQeRir3-xsUfzm6JPVWB9XHaKHkAa-hpR0ne1g7gyw/viewform", 
+    width="900px", height= "1000px"
+  )
+)
+```
+
+
+
