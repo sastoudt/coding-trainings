@@ -35,4 +35,4 @@ Click "Session" --> "Restart R" and try to run the tutorial again.
 
 ## Available Tutorials
 
-
+- subsets: how to subset vectors, matrices, and data frames using indices, logicals, and subset notation
