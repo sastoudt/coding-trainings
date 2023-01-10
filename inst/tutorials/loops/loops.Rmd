@@ -1,0 +1,236 @@
+---
+title: "How to Use Loops"
+output: learnr::tutorial
+runtime: shiny_prerendered
+---
+
+```{r setup, include=FALSE}
+library(learnr)
+library(learnrhash)
+library(tidyverse)
+library(gradethis)
+library(here)
+tutorial_options(
+  # use gradethis for checking
+  exercise.checker = gradethis::grade_learnr
+  )
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+
+# Getting started - Loops
+
+A simple for loop has the following structure:
+
+```{r loopEx, exercise = TRUE}
+n <- 5
+for(i in 1:n){
+  print(1)
+}
+```
+
+This is read "for index $i$ in the sequence 1 to $n$, do the following" (whatever is in the curly braces). 
+
+```{r loop1}
+quiz(
+question("What would the for loop above do",
+    answer("Print 5 one time."),
+    answer("Print 5 five times"),
+    answer("Print 1 five times", correct = T),
+    answer("Print 1 one time."),
+    allow_retry = TRUE,
+    random_answer_order = F
+  )
+)
+```
+
+## Getting started - Loops cont.
+
+In this class, we will often want to work with probability distributions. 
+
+```{r loopEx2, exercise = TRUE}
+n <- 5
+sample_size <- 3
+for(i in 1:n){
+  x <- rnorm(n = sample_size, mean = 0, sd = 1)
+}
+```
+
+```{r loop2}
+quiz(
+question("What is in x at the end of the above for loop",
+    answer("3 numbers drawn from the specified normal distribution.", correct = T),
+    answer("15 numbers drawn from the specified normal distribution."),
+    answer("Nothing, x is empty."),
+    answer("1 number drawn from the specified normal distribution"),
+    allow_retry = TRUE,
+    random_answer_order = F
+  )
+)
+```
+
+
+## Sums
+
+$$\sum_{i=0}^4 3i$$
+
+```{r sum, exercise = TRUE}
+total <- 0 ## start the total at zero
+for(j in 0:4){ ## for index j in 0 through 4
+  
+  total <- total + 3*j ## overwrite total by adding 3*j 
+  
+  
+}
+total
+class(total) ## what type of object is this
+length(total)
+dim(total) ## not relevant for this type
+```
+
+
+## Products
+
+Go through the code annotation process for the following code chunk.
+
+$$\prod_{i=1}^4 2i$$
+
+```{r prod, exercise = TRUE}
+total <- 1 ## do you understand why this starts at 1?
+for(i in 1:4){
+  
+  total <- total * 2*i
+  
+}
+total
+class(total)
+length(total)
+```
+
+## Simulate and Store Data
+
+
+```{r sim, exercise = TRUE}
+num_sim <- 5 
+sample_size <- 3
+stored_data <- matrix(NA, nrow = num_sim, ncol = sample_size)
+## set up a place to store things
+## set up empty matrix of NAs with 5 rows and 3 columns
+for(i in 1:num_sim){ ## do something 5 times
+  x <- rnorm(n = sample_size, mean = 0, sd = 1) 
+  ## draw 3 random numbers from N(0,1)
+  stored_data[i,] <- x
+  ## over ride the ith row in stored_data with the 3 values we drew
+}
+stored_data ## print results
+```
+
+```{r quiz1}
+quiz(
+question("What does stored_data look like when it is first created?",
+    answer("A matrix of random numbers with 5 rows and 3 columns."),
+    answer("A matrix of random numbers with 3 rows and 5 columns."),
+    answer("A matrix of NAs with 5 rows and 3 columns.", correct = TRUE),
+    answer("A matrix of NAs with 3 rows and 5 columns."),allow_retry = TRUE,
+    random_answer_order = T
+  ),
+question("What function should we use to determine the size of stored_data?",
+    answer("rep"),
+    answer("length"),
+    answer("dim", correct = TRUE),
+    answer("c()"),allow_retry = TRUE,
+    random_answer_order = T
+  )
+)
+```
+
+## Simulate and Store Results
+
+```{r sim2, exercise = TRUE}
+num_sim <- 5
+sample_size <- 3
+stored_means <- rep(NA, length.out = num_sim) ## we haven't seen this before, so be sure to check the help page
+for(i in 1:num_sim){
+  x <- rnorm(n = sample_size, mean = 0, sd = 1)
+  stored_means[i] <- mean(x)
+  }
+stored_means
+```
+
+```{r quiz2}
+quiz(
+question("What does stored_means look like when it is first created?",
+    answer("A matrix of NAs with 5 rows and 3 columns."),
+    answer("A vector of NAs that has 3 elements in it."),
+    answer("A vector of NAs that has 5 elements in it.", correct = TRUE),
+    answer("5 repeated 3 times."),allow_retry = TRUE,
+    random_answer_order = T
+  ),
+question("What function should we use to determine how many elements are in stored_means?",
+    answer("rep"),
+    answer("dim"),
+    answer("length", correct = TRUE),
+    answer("c()"),allow_retry = TRUE,
+    random_answer_order = T
+  )
+)
+```
+
+## Your Turn
+
+Suppose we are interested in approximating the sampling distribution of the mean of an Exponential random variable. 
+
+```{r getMean, exercise = TRUE, exercise.eval = FALSE}
+lambda <- 1 
+n <- 10 
+num_rep <- 1000 ## how many times we want to repeat the simulation, something fairly large
+store_mean <- ___(NA, ___)
+for (i in 1:___) {
+  test <- rexp(n = ___, rate = ___)
+  store_mean[___] <- ___(test)
+}
+mean(___) ## to approximate the expected value
+var(___) ## to approximate the variance 
+```
+
+```{r getMean-solution}
+lambda <- 2 
+n <- 10 
+num_rep <- 1000 ## how many times we want to repeat the simulation, something fairly large
+store_mean <- rep(NA, num_rep)
+for (i in 1:num_rep) {
+  test <- rexp(n = n, rate = lambda)
+  store_mean[i] <- mean(test)
+}
+mean(store_mean) ## to approximate the expected value
+var(store_mean) ## to approximate the variance
+```
+
+```{r getMean-check}
+# check code
+gradethis::grade_code()
+```
+
+
+## Submit progress
+
+As you have gone through this tutorial, your progress has been kept track of in something called a "hash". I can use this to make sure you have executed all of the code chunks and answered all of the questions. I will use this to give you a completion grade for this assignment. 
+
+If a Google Form window does not appear, you can access it [here](https://docs.google.com/forms/d/e/1FAIpQLSeW9exymQeRir3-xsUfzm6JPVWB9XHaKHkAa-hpR0ne1g7gyw/viewform).
+
+```{r context="server"}
+learnrhash::encoder_logic(strip_output = T)
+```
+
+```{r encode, echo=FALSE}
+learnrhash::encoder_ui(
+  ui_before = div(strong("Submit your hash in the form below."), br(), br()),
+  ui_after  = learnrhash::iframe_ui(
+    src = "https://docs.google.com/forms/d/e/1FAIpQLSeW9exymQeRir3-xsUfzm6JPVWB9XHaKHkAa-hpR0ne1g7gyw/viewform", 
+    width="900px", height= "1000px"
+  )
+)
+```
+
+
+
