@@ -8,11 +8,11 @@ One time only (may need to reinstall for updates throughout the semester):
 
 `install.packages("remotes")`
 
-`remotes::install_github("sastoudt/codeTrainings")`
+`remotes::install_github("sastoudt/codingTrainings")`
 
 ### Launch a lesson:
 
-1. In the console (bottom left) type: `learnr::run_tutorial("subsets", "codingTutorials")`
+1. In the console (bottom left) type: `learnr::run_tutorial("subsets", "codingTrainings")`
 
 ### Stop a lesson 
 
