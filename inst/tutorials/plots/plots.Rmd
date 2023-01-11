@@ -135,7 +135,7 @@ quiz(
 We have data on the sodium level and number of caloris for hot dogs made from different types of meat.
 
 ```{r loadData, exercise = TRUE, warning = F, message = F}
-hot_dog <- read_csv(here("inst/extdata/hotdogs.csv")) 
+hot_dog <- read_csv(here("extdata/hotdogs.csv")) 
 head(hot_dog)
 ```
 

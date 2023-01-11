@@ -240,7 +240,7 @@ gradethis::grade_code()
 This data are the result of a survey completed by an advertising firm interested in determining how much to emphasize television advertising in a certain county.  The county contains two towns, labeled 1 and 2, and a rural area, labeled 3.  Town 1 is built around a factory and most households contain factory workers with school-aged children.  Town 2 is an exclusive suburb of a city in a neighboring county and contains older residents with few children at home.  A wide range of individuals and family types live in the rural area.  Residents were asked to estimate the average number of hours each week that the household watched TV.
 
 ```{r loadData, exercise = TRUE, warning = FALSE, message = F}
-tv_data <- read_table(here("inst/extdata/TV_Viewing.txt")) ## use when data is in .txt form
+tv_data <- read_table(here("extdata/TV_Viewing.txt")) ## use when data is in .txt form
 
 head(tv_data) ## shows the first 6 rows of the data frame tv_data
 ```
