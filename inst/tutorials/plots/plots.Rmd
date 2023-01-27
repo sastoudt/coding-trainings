@@ -117,9 +117,9 @@ quiz(
     answer("No", correct = T),allow_retry = TRUE,
     random_answer_order = F
   ),
-   question("If the class consists of 15 boys and 15 girls, assign the boys teh numbers from 1 to 15, and the girls the numbers from 16-30. Then use a random digit table to select three numbers from 1 to 15 and three numbers from 16-30. Select the students assigned those numbers in your sample.",
-   answer("Yes - SRS", correct = T),
-    answer("No"),allow_retry = TRUE,
+   question("If the class consists of 15 boys and 15 girls, assign the boys the numbers from 1 to 15, and the girls the numbers from 16-30. Then use a random digit table to select three numbers from 1 to 15 and three numbers from 16-30. Select the students assigned those numbers in your sample.",
+   answer("Yes - SRS"),
+    answer("No", correct = T),allow_retry = TRUE,
     random_answer_order = F
   ),
    question("Randomly choose a letter from the English alphabet and select for the sample those students whose last names begin with that letter. If no last name begins with that letter, randomly choose another letter from the alphabet.",
